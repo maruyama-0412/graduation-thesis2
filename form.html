@@ -71,6 +71,14 @@
 
             <div class="item">
                 <label class="label">
+                    <!-- 追加: 郵便番号 -->
+                    郵便番号
+                </label>
+                <input class="inputs" type="text" id="dest_zipcode" maxlength="8" placeholder="例: 123-4567">
+            </div>
+
+            <div class="item">
+                <label class="label">
                     派遣先の住所
                     <span class="required-mark">必須</span>
                 </label>
@@ -143,6 +151,28 @@
             } else {
                 form.reportValidity();
             }
+        });
+
+        document.getElementById('dest_zipcode').addEventListener('blur', function() {
+            const raw = this.value || '';
+            const code = raw.replace(/\D/g, '').slice(0,7);
+            if (code.length !== 7) return;
+            fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + code)
+            .then(res => res.json())
+            .then(json => {
+                if (json && json.status === 200 && json.results && json.results.length) {
+                    const r = json.results[0];
+                    const addr = `${r.address1 || ''}${r.address2 || ''}${r.address3 || ''}`;
+                    const addrInput = document.querySelector('input[name="dest_address"]');
+                    if (addrInput) addrInput.value = addr;
+                } else {
+                    // 見つからない場合は空にするか通知
+                    console.log('郵便番号で住所が見つかりませんでした');
+                }
+            })
+            .catch(err => {
+                console.log('住所自動入力エラー:', err);
+            });
         });
         </script>
     </body>
