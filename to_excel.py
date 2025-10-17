@@ -1,13 +1,19 @@
-from flask import Flask, request
+# ...existing code...
+from flask import Flask, request, send_from_directory
 from openpyxl import Workbook, load_workbook
+from flask_cors import CORS
+from datetime import datetime
 import os
-from flask_cors import CORS  # 追加
-from datetime import datetime  # 追加
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)  # 追加
 
 EXCEL_PATH = 'test.xlsx'
+
+@app.route('/')
+def root():
+    #HTMLにアクセスしたときの最初に開くページを指定
+    return send_from_directory('.', 'index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -47,4 +53,4 @@ def submit():
 
 if __name__ == '__main__':
     # 変更: localhost:5000で起動
-    app.run(host='localhost', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)

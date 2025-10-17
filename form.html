@@ -126,7 +126,7 @@
             if (form.checkValidity()) {
                 const formData = new FormData(form);
                 // 変更: fetchでFlaskサーバーにPOST送信
-                fetch('http://localhost:5000/submit', {
+                fetch('/submit', {
                     method: 'POST',
                     body: formData
                 })
