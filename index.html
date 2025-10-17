@@ -1,141 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-        <link rel="stylesheet" href="./style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="globals.css" />
+        <link rel="stylesheet" href="styleguide.css" />
+        <link rel="stylesheet" href="index.css" />
     </head>
     <body>
-        
-        <p class="lead-form">手話通訳者の派遣申請</p>
-
-        <!-- 変更: formにid追加 -->
-        <form id="dispatchForm">
-
-            <div class="item">
-                <label class="label">
-                    住所
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="address" required>
+        <div class="screen">
+            <div class="view"><div class="text-wrapper">手話通訳者　派遣サービス</div></div>
+            <div class="component">
+                <div class="div">メールアドレス</div>
+                <div class="frame"><div class="text-wrapper-2">user123@example.com</div></div>
             </div>
-        
-            <div class="item">
-                <label class="label">
-                    名前（団体名）
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="org_name" required>
+            <div class="component-2">
+                <div class="text-wrapper-3">ログイン状態を維持する</div>
+                <div class="group">
+                    <div class="gravity-ui-check-wrapper">
+                        <div class="gravity-ui-check"><img class="vector" src="img/image.svg" /></div>
+                    </div>
+                </div>
             </div>
-
-            <div class="item">
-                <label class="label">担当者名</label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="person_name">
+            <div class="text-wrapper-4">パスワードをお忘れの方</div>
+            <div class="div-wrapper">
+                <a href="home.html" class="text-wrapper-5">ログイン</a>
             </div>
-
-            <div class="item">
-                <label class="label">
-                    電話番号
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="tel" required>
+            <div class="frame-2"><div class="text-wrapper-6">ログイン</div></div>
+            <div class="component-3">
+                <div class="text-wrapper-7">パスワード</div>
+                <div class="frame">
+                    <div class="text-wrapper-8">********</div>
+                    <img class="line" src="img/line-2.svg" />
+                    <div class="basil-eye-outline">
+                        <div class="group-2">
+                            <img class="img" src="img/vector-2.svg" /> <img class="vector-2" src="img/vector.svg" />
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="item">
-                <label class="label">FAX</label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="fax">
-            </div>
-
-            <div class="item">
-                <label class="label">
-                    派遣日時
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性は既にあり -->
-                <input class="inputs" type="datetime-local" name="dispatch_time" required>
-            </div>
-
-            <div class="item">
-                <label class="label">
-                    派遣先の住所
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="dest_address" required>
-            </div>
-
-            <div class="item">
-                <label class="label">
-                    派遣先の会場名
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="dest_place" required>
-            </div>
-
-            <div class="item">
-                <label class="label">
-                    派遣先の電話番号
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="dest_tel" required>
-            </div>
-
-            <div class="item">
-                <label class="label">派遣先のFAX</label>
-                <!-- 変更: name属性追加 -->
-                <input class="inputs" type="text" name="dest_fax">
-            </div>
-
-            <div class="item">
-                <label class="label">
-                    申請事由
-                    <span class="required-mark">必須</span>
-                </label>
-                <!-- 変更: name属性追加 -->
-                <textarea class="inputs" name="reason" required></textarea>
-            </div>
-
-            <div class="btn-area">
-                <!-- 変更: onclick削除、type="submit"のみ -->
-                <button class="button" type="submit">送信</button>
-            </div>
-
-        </form>
-
-        <script>
-        // 変更: submitイベントで処理
-        document.getElementById('dispatchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = e.target;
-            if (form.checkValidity()) {
-                const formData = new FormData(form);
-                // 変更: fetchでFlaskサーバーにPOST送信
-                fetch('http://localhost:5000/submit', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('申請を送信しました。');
-                    } else {
-                        alert('送信に失敗しました。');
-                    }
-                })
-                .catch(error => {
-                    alert('送信エラー: ' + error);
-                });
-            } else {
-                form.reportValidity();
-            }
-        });
-        </script>
+            <div class="frame-3"><div class="text-wrapper-9">はじめての方はこちら</div></div>
+            <div class="view-2"><div class="text-wrapper-5">新規登録</div></div>
+        </div>
     </body>
 </html>

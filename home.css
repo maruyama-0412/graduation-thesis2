@@ -1,0 +1,78 @@
+.screen {
+    background-color: var(--r-VZM-cj);
+    width: 100%;
+    min-width: 393px;
+    min-height: 852px;
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+}
+
+.screen .view {
+    width: 393px;
+    height: 104px;
+    display: flex;
+    background-color: var(--r-VZM-cj);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: var(--o-nn-NAT);
+}
+
+.screen .text-wrapper {
+    margin-top: 52px;
+    width: 216px;
+    height: 28px;
+    margin-left: 88px;
+    color: #000000;
+    font-size: 18px;
+    letter-spacing: 1.80px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    text-align: center;
+    line-height: 28px;
+}
+
+.screen .div-wrapper {
+    margin-left: 68px;
+    width: 257px;
+    height: 134px;
+    display: flex;
+    background-color: #7070ff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.screen .div {
+    margin-top: 23px;
+    width: 195px;
+    height: 88px;
+    margin-left: 31px;
+    color: #ffffff;
+    font-size: 40px;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    text-align: center;
+    line-height: 28px;
+}
+
+.screen .span {
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 28px;
+}
+
+.screen .text-wrapper-2 {
+    font-size: 30px;
+}
