@@ -1,12 +1,5 @@
 @charset "utf-8";
 
-/* ========================================================= */
-/* --- 共通設定 (PC/タブレット/スマホのデフォルト) --- */
-/* ========================================================= */
-
-/* --- 既存のform.cssの上部はそのまま --- */
-
-/* 追加: ヘッダー用スタイル */
 .screen {
     width: 393px;
     height: 104px;
@@ -129,9 +122,9 @@ form {
 
 /* --- ラベルと必須マーク --- */
 .label {
-    font-size: 15px;
+    font-size: 18px;
     display: block; 
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 5px;
 }
 
@@ -139,7 +132,7 @@ form {
     background-color: #e83a48; /* 赤色 */
     color: white;
     font-size: 13px;
-    font-weight: normal;
+    font-weight: bold;
     padding: 2px 6px;
     border-radius: 4px;
     margin-left: 8px;
@@ -148,22 +141,41 @@ form {
     transform: translateY(-1px);
 }
 
+/* --- 各入力フィールドと見出しのセット (.item) --- */
+.item {
+    margin-bottom: 25px; /* セット間の間隔を調整 */
+}
+
 /* --- 入力フィールド (.inputs) --- */
 .inputs {
+    height: 50px;
+    min-height: 50px;
     width: 100%;
     padding: 10px; 
-    margin: 5px 0 15px; 
+    margin: 5px 0 0; /* 下のマージンを削除し、.itemで制御 */
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box; 
-    font-size: 16px; 
+    font-size: 18px; 
     /* ★ 修正点: 背景色を白と明示的に指定 ★ */
     background-color: #ffffff;
     
-    /* ★ 追加: モバイルのデフォルトの影や内側の影をリセット ★ */
-    /* -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; */
+}
+
+.item[style*="display:flex"] input[type="time"],
+input[name="dispatch_start"],
+input[name="dispatch_end"] {
+    width: 140px !important;    /* 固定幅（必要なら調整） */
+    box-sizing: border-box;
+    padding: 8px 10px !important;
+    font-size: 18px;
+}
+
+#dest_zipcode {
+    width: 160px !important;    /* 郵便番号欄を小さめに */
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 18px;
 }
 
 .inputs:focus {
@@ -213,11 +225,49 @@ textarea.inputs {
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
+.item[style*="display:flex"] > div {
+    flex: 0 0 auto; /* 子要素の幅を自動（固定サイズ）にする */
+    min-width: 0;
+}
+
+/* 開始・終了の time 入力を狭める（必要に応じて px を調整） */
+.item[style*="display:flex"] input[type="time"],
+input[name="dispatch_start"],
+input[name="dispatch_end"] {
+    width: 280px !important;    /* 横幅を小さく固定 */
+    max-width: 100% !important;  /* レスポンシブ時の上限 */
+    box-sizing: border-box;
+    padding: 8px 10px !important;
+    font-size: 18px;
+}
+
+.item[style*="display:flex"] {
+    display: flex !important;
+    gap: 12px;
+    align-items: flex-start;
+    flex-wrap: wrap; /* 小さな画面では折り返す */
+}
+
+/* 子コンテナを縮小可能にする（重要） */
+.item[style*="display:flex"] > div {
+    flex: 1 1 0; /* 伸び・縮みを許可、基準幅は 0 */
+    min-width: 0; /* 子が縮まるために必須 */
+    box-sizing: border-box;
+}
+
 /* ========================================================= */
 /* --- レスポンシブ対応 (スマートフォン向け) --- */
 /* ========================================================= */
 @media (max-width: 650px) {
     
+    input[name="dispatch_date"].inputs,
+    input[name="dispatch_date"] {
+        height: 40px !important;
+        min-height: 40px !important;
+        padding: 6px 8px !important;
+        font-size: 18px !important;
+    }
+
     /* body: 画面全体の左右の余白を最小限に */
     body {
         padding: 10px 5px; /* 上下の余白も減らす */
@@ -242,9 +292,19 @@ textarea.inputs {
 
     /* .inputs: datetime-localの飛び出しと見切れを修正するための重要な調整 */
     .inputs {
-        font-size: 14px; /* フォントサイズを小さく */
+        font-size: 18px; /* フォントサイズを18pxに統一 */
         padding: 6px 4px; /* パディングも小さく */
-        margin: 5px 0 10px; /* 下マージンも削減 */
+        margin: 5px 0 0; /* 下マージンを削除し、.itemで制御 */
+    }
+    
+    /* 郵便番号フィールドのパディングもスマホ用に統一 */
+    #dest_zipcode {
+        padding: 6px 4px !important;
+    }
+    
+    /* スマートフォンでの各セット間の間隔 */
+    .item {
+        margin-bottom: 20px; /* モバイルでは少し狭く */
     }
     
     /* ボタンエリア: 上部の余白を調整 */
