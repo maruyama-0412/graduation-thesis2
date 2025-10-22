@@ -76,3 +76,85 @@
 .screen .text-wrapper-2 {
     font-size: 30px;
 }
+
+/* 申請内容サマリー */
+.application-summary {
+    margin: 20px 68px;
+}
+
+.summary-button {
+    width: 257px;
+    background-color: #ffffff;
+    border: 2px solid #7070ff;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.summary-button:hover {
+    background-color: #f8f9ff;
+}
+
+.summary-content {
+    flex: 1;
+}
+
+.summary-item {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    min-width: 100px;
+}
+
+.summary-value {
+    font-size: 14px;
+    color: #666;
+    flex: 1;
+}
+
+.interpreter-pending {
+    color: #ff6b6b !important;
+    font-weight: bold;
+}
+
+.arrow {
+    font-size: 20px;
+    color: #7070ff;
+    font-weight: bold;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 650px) {
+    .application-summary {
+        margin: 20px 10px;
+    }
+    
+    .summary-button {
+        width: calc(100% - 20px);
+        padding: 15px;
+    }
+    
+    .summary-label {
+        min-width: 80px;
+        font-size: 12px;
+    }
+    
+    .summary-value {
+        font-size: 12px;
+    }
+}

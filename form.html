@@ -47,7 +47,7 @@
         -->
 
         <div class="item">
-            <label class="label">派遣日 <span class="required-mark">必須</span></label>
+            <label class="label">利用日 <span class="required-mark">必須</span></label>
             <input class="inputs" type="date" name="dispatch_date" required>
         </div>
 
@@ -100,17 +100,57 @@
     </form>
 
     <script>
+    // ページ読み込み時に編集モードかチェック
+    window.addEventListener('load', function() {
+        const editMode = sessionStorage.getItem('editMode');
+        if (editMode === 'true') {
+            // 編集モードの場合、既存データを復元
+            restoreFormData();
+            sessionStorage.removeItem('editMode');
+        }
+    });
+    
+    // フォームデータを復元する関数
+    function restoreFormData() {
+        const applicationData = JSON.parse(sessionStorage.getItem('applicationData') || '{}');
+        const form = document.getElementById('dispatchForm');
+        
+        if (applicationData.dispatch_date) form.dispatch_date.value = applicationData.dispatch_date;
+        if (applicationData.dispatch_start) form.dispatch_start.value = applicationData.dispatch_start;
+        if (applicationData.dispatch_end) form.dispatch_end.value = applicationData.dispatch_end;
+        if (applicationData.dest_zipcode) form.dest_zipcode.value = applicationData.dest_zipcode;
+        if (applicationData.dest_address) form.dest_address.value = applicationData.dest_address;
+        if (applicationData.dest_place) form.dest_place.value = applicationData.dest_place;
+        if (applicationData.dest_tel) form.dest_tel.value = applicationData.dest_tel;
+        if (applicationData.reason) form.reason.value = applicationData.reason;
+    }
+    
     // フォーム送信：/submit に POST
     document.getElementById('dispatchForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const form = e.target;
         if (!form.checkValidity()) { form.reportValidity(); return; }
+        // フォームデータを収集してローカルストレージに保存
+        const applicationData = {
+            dispatch_date: form.dispatch_date.value,
+            dispatch_start: form.dispatch_start.value,
+            dispatch_end: form.dispatch_end.value,
+            dest_zipcode: form.dest_zipcode.value,
+            dest_address: form.dest_address.value,
+            dest_place: form.dest_place.value,
+            dest_tel: form.dest_tel.value,
+            reason: form.reason.value
+        };
+        
         const formData = new FormData(form);
         fetch('/submit', { method: 'POST', body: formData })
         .then(response => {
             if (response.ok) {
                 alert('申請を送信しました。');
-                form.reset();
+                // データをセッションストレージに保存（ブラウザ閉じると自動削除）
+                sessionStorage.setItem('applicationData', JSON.stringify(applicationData));
+                // 申請完了後、home.htmlに戻る
+                window.location.href = 'home.html';
             } else {
                 alert('送信に失敗しました。');
             }

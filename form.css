@@ -122,9 +122,9 @@ form {
 
 /* --- ラベルと必須マーク --- */
 .label {
-    font-size: 18px;
+    font-size: 15px;
     display: block; 
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 
@@ -132,7 +132,7 @@ form {
     background-color: #e83a48; /* 赤色 */
     color: white;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: normal;
     padding: 2px 6px;
     border-radius: 4px;
     margin-left: 8px;
@@ -168,7 +168,7 @@ input[name="dispatch_end"] {
     width: 140px !important;    /* 固定幅（必要なら調整） */
     box-sizing: border-box;
     padding: 8px 10px !important;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 #dest_zipcode {
@@ -238,7 +238,7 @@ input[name="dispatch_end"] {
     max-width: 100% !important;  /* レスポンシブ時の上限 */
     box-sizing: border-box;
     padding: 8px 10px !important;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .item[style*="display:flex"] {
@@ -265,7 +265,7 @@ input[name="dispatch_end"] {
         height: 40px !important;
         min-height: 40px !important;
         padding: 6px 8px !important;
-        font-size: 18px !important;
+        font-size: 14px !important;
     }
 
     /* body: 画面全体の左右の余白を最小限に */

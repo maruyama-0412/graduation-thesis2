@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="form.css" />
+    <title>申請内容詳細</title>
+</head>
+<body>
+    <div class="screen">
+        <div class="view">
+            <a href="home.html" class="tabler-caret-left"><img class="vector" src="img/vector.svg" alt="戻る" /></a>
+            <a href="home.html" class="text-wrapper">戻る</a>
+        </div>
+        <div class="div">申請内容詳細</div>
+    </div>
+
+    <div class="detail-container">
+        <div class="detail-section">
+            <h3>申請内容</h3>
+            
+            <div class="detail-item">
+                <label class="detail-label">利用日</label>
+                <div class="detail-value" id="detailDate">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">開始時刻</label>
+                <div class="detail-value" id="detailStartTime">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">終了時刻</label>
+                <div class="detail-value" id="detailEndTime">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">郵便番号</label>
+                <div class="detail-value" id="detailZipcode">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">利用先の住所</label>
+                <div class="detail-value" id="detailAddress">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">利用先の会場名</label>
+                <div class="detail-value" id="detailPlace">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">利用先の電話番号</label>
+                <div class="detail-value" id="detailTel">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">申請事由</label>
+                <div class="detail-value" id="detailReason">-</div>
+            </div>
+            
+            <div class="detail-item">
+                <label class="detail-label">手話通訳者</label>
+                <div class="detail-value interpreter-status">未確定</div>
+            </div>
+        </div>
+        
+        <div class="btn-area">
+            <button class="button edit-button" onclick="editApplication()">変更</button>
+        </div>
+    </div>
+
+    <script>
+        // ページ読み込み時にデータを表示
+        window.addEventListener('load', function() {
+            const applicationData = JSON.parse(sessionStorage.getItem('applicationData') || '{}');
+            
+            // 日付フォーマット変換
+            if (applicationData.dispatch_date) {
+                const date = new Date(applicationData.dispatch_date);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                const day = date.getDate();
+                document.getElementById('detailDate').textContent = `${year}年${month}月${day}日`;
+            }
+            
+            // その他のデータを表示
+            document.getElementById('detailStartTime').textContent = applicationData.dispatch_start || '-';
+            document.getElementById('detailEndTime').textContent = applicationData.dispatch_end || '-';
+            document.getElementById('detailZipcode').textContent = applicationData.dest_zipcode || '-';
+            document.getElementById('detailAddress').textContent = applicationData.dest_address || '-';
+            document.getElementById('detailPlace').textContent = applicationData.dest_place || '-';
+            document.getElementById('detailTel').textContent = applicationData.dest_tel || '-';
+            document.getElementById('detailReason').textContent = applicationData.reason || '-';
+        });
+        
+        // ページが閉じられる前にデータを削除
+        window.addEventListener('beforeunload', function(e) {
+            sessionStorage.removeItem('applicationData');
+        });
+        
+        function editApplication() {
+            // 編集モードでフォームに移動することをマーク
+            sessionStorage.setItem('editMode', 'true');
+            window.location.href = 'form.html';
+        }
+    </script>
+
+    <style>
+        .detail-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        
+        .detail-section h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #7070ff;
+            padding-bottom: 10px;
+        }
+        
+        .detail-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .detail-label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .detail-value {
+            font-size: 16px;
+            color: #333;
+            min-height: 20px;
+        }
+        
+        .interpreter-status {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        /* ボタンスタイルの調整 */
+        .btn-area {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .edit-button {
+            background-color: #28a745 !important;
+        }
+        
+        .edit-button:hover {
+            background-color: #218838 !important;
+        }
+        
+        @media (max-width: 650px) {
+            .detail-container {
+                margin: 10px auto;
+                padding: 15px;
+            }
+            
+            .detail-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</body>
+</html>

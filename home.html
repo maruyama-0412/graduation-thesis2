@@ -16,6 +16,69 @@
                     <span class="text-wrapper-2">する</span>
                 </a>
             </div>
+            
+            <!-- 申請内容表示エリア -->
+            <div id="applicationSummary" class="application-summary" style="display: none;">
+                <button class="summary-button" onclick="goToDetail()">
+                    <div class="summary-content">
+                        <div class="summary-item">
+                            <span class="summary-label">利用日:</span>
+                            <span id="summaryDate" class="summary-value">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">利用先の会場名:</span>
+                            <span id="summaryPlace" class="summary-value">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">手話通訳者:</span>
+                            <span class="summary-value interpreter-pending">未確定</span>
+                        </div>
+                    </div>
+                    <div class="arrow">></div>
+                </button>
+            </div>
         </div>
+        
+        <script>
+            // ページ読み込み時に申請内容があるかチェック
+            window.addEventListener('load', function() {
+                const hasApplicationData = sessionStorage.getItem('applicationData');
+                
+                // アプリケーションデータがある場合はサマリーを表示
+                if (hasApplicationData) {
+                    showApplicationSummary();
+                }
+            });
+            
+            // ページが閉じられる前にデータを削除
+            window.addEventListener('beforeunload', function(e) {
+                sessionStorage.removeItem('applicationData');
+            });
+            
+            function showApplicationSummary() {
+                const applicationData = JSON.parse(sessionStorage.getItem('applicationData') || '{}');
+                
+                // 日付フォーマット変換
+                if (applicationData.dispatch_date) {
+                    const date = new Date(applicationData.dispatch_date);
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1;
+                    const day = date.getDate();
+                    document.getElementById('summaryDate').textContent = `${year}年${month}月${day}日`;
+                }
+                
+                // 会場名を表示
+                if (applicationData.dest_place) {
+                    document.getElementById('summaryPlace').textContent = applicationData.dest_place;
+                }
+                
+                // サマリーを表示
+                document.getElementById('applicationSummary').style.display = 'block';
+            }
+            
+            function goToDetail() {
+                window.location.href = 'detail.html';
+            }
+        </script>
     </body>
 </html>
